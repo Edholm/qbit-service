@@ -81,6 +81,7 @@ type TrackerInfo struct {
 	Msg           string `json:"msg"`            // tracker message (there is no way of knowing what this message is - it's up to tracker admins)
 }
 
+//noinspection GoUnusedConst
 const (
 	TrackerDisabled     = 0 // Tracker is disabled (used for DHT, PeX, and LSD)
 	TrackerNotContacted = 1 // Tracker has not been contacted yet
@@ -168,6 +169,7 @@ func loginIfNeeded(url string) {
 	}
 }
 
+//noinspection GoUnusedExportedFunction
 func GetStalledDownloads() (downloads []TorrentInfo, err error) {
 	stalledUrl := getUrl("/api/v2/torrents/info?filter=stalled_downloading&limit=10&sort=added_on&reverse=true")
 	loginIfNeeded(stalledUrl)
@@ -192,6 +194,7 @@ func GetStalledDownloads() (downloads []TorrentInfo, err error) {
 	return
 }
 
+//noinspection GoUnusedExportedFunction
 func GetVersion() (version []byte, err error) {
 	versionUrl := getUrl("/api/v2/app/version")
 	loginIfNeeded(versionUrl)
@@ -206,6 +209,7 @@ func GetVersion() (version []byte, err error) {
 	return
 }
 
+//noinspection GoUnusedExportedFunction
 func GetTrackerInfo(torrent *TorrentInfo) (trackerInfo []TrackerInfo, err error) {
 	var trackerInfoUrl = getUrl("/api/v2/torrents/trackers?hash=", torrent.Hash)
 	loginIfNeeded(trackerInfoUrl)
@@ -232,6 +236,7 @@ func GetTrackerInfo(torrent *TorrentInfo) (trackerInfo []TrackerInfo, err error)
 	return
 }
 
+//noinspection GoUnusedExportedFunction
 func ForceReannounce(hashes *[]string) {
 	var announceUrl = getUrl("/api/v2/torrents/reannounce?hashes=", combineHashes(hashes))
 	resp, err := client.Get(announceUrl)
