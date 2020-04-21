@@ -98,11 +98,11 @@ func (e *LoginError) Error() string {
 	return e.Cause
 }
 
-type QbitError struct {
+type Error struct {
 	Message string
 }
 
-func (e *QbitError) Error() string {
+func (e *Error) Error() string {
 	return e.Message
 }
 
@@ -181,7 +181,7 @@ func GetStalledDownloads() (downloads []TorrentInfo, err error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		err = &QbitError{Message: "Failed to get downloads: " + resp.Status}
+		err = &Error{Message: "Failed to get downloads: " + resp.Status}
 		return
 	}
 
@@ -221,7 +221,7 @@ func GetTrackerInfo(torrent *TorrentInfo) (trackerInfo []TrackerInfo, err error)
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		err = &QbitError{
+		err = &Error{
 			fmt.Sprintf("Cannot find torrent with hash %s - %s", torrent.Hash, resp.Status),
 		}
 		return
